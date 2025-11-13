@@ -1,0 +1,94 @@
+/* Custom theme tweaks (keep it CSS-only) */
+:root {
+  /* Pastel pistachio-inspired palette */
+  --brand: #9AD3AE; /* Pistachio */
+  --brand-strong: #5fb688;
+  --accent: #8AB6F9; /* Soft blue */
+  --accent-2: #D7C8FF; /* Lavender */
+  --pink: #F7CDE1; /* Soft pink */
+  --bg-grad-start: #f6fff8; /* mint-tinged white */
+  --bg-grad-end: #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+
+.bg-gradient-light {
+  background: linear-gradient(180deg, var(--bg-grad-start), var(--bg-grad-end));
+}
+
+.hero-card .bi { margin-top: 2px; }
+
+.stat { padding: .5rem 0; }
+.stat-value { font-weight: 700; font-size: 1.1rem; }
+.stat-label { font-size: .75rem; color: #6c757d; text-transform: uppercase; letter-spacing: .04em; }
+
+.project-card .card-title { font-weight: 700; }
+
+/* Simple hover for cards */
+.project-card { transition: transform .15s ease, box-shadow .15s ease; }
+.project-card:hover { transform: translateY(-2px); box-shadow: 0 .5rem 1rem rgba(0,0,0,.08) !important; }
+
+/* Make header stick without JS */
+header { backdrop-filter: saturate(180%) blur(6px); background-color: rgba(255,255,255,.9) !important; }
+
+/* Spacing utilities tune */
+section + section { scroll-margin-top: 80px; }
+
+/* Footer year (kept static since no JS) */
+#year { font-variant-numeric: tabular-nums; }
+
+/* Pastel theme overrides for Bootstrap tokens */
+.text-primary { color: var(--brand) !important; }
+.btn-primary {
+  --bs-btn-color: #0a3622;
+  --bs-btn-bg: var(--brand);
+  --bs-btn-border-color: var(--brand);
+  --bs-btn-hover-bg: var(--brand-strong);
+  --bs-btn-hover-border-color: var(--brand-strong);
+  --bs-btn-active-bg: var(--brand-strong);
+  --bs-btn-active-border-color: var(--brand-strong);
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--brand-strong);
+  --bs-btn-border-color: var(--brand);
+  --bs-btn-hover-bg: var(--brand);
+  --bs-btn-hover-border-color: var(--brand);
+  --bs-btn-hover-color: #0a3622;
+}
+.badge.bg-primary-subtle { background-color: color-mix(in oklab, var(--brand) 20%, white) !important; }
+.text-primary-emphasis { color: color-mix(in oklab, var(--brand) 60%, #0a3622) !important; }
+
+/* Progress bars: soft gradient fill */
+.progress { height: .75rem; background-color: rgba(0,0,0,.04); }
+.progress-bar {
+  background-image: linear-gradient(90deg, var(--brand), var(--accent-2), var(--accent));
+  background-size: 200% 100%;
+  animation: shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+/* Bubble background with floating pastel circles */
+.bg-bubbles { position: relative; overflow: hidden; }
+.bg-bubbles::before,
+.bg-bubbles::after {
+  content: "";
+  position: absolute; inset: -15% -10% -10% -10%;
+  pointer-events: none;
+  background:
+    radial-gradient(60px 60px at 12% 18%, color-mix(in oklab, var(--brand) 25%, transparent) 0 60px, transparent 61px),
+    radial-gradient(80px 80px at 80% 10%, color-mix(in oklab, var(--accent) 18%, transparent) 0 80px, transparent 81px),
+    radial-gradient(70px 70px at 20% 80%, color-mix(in oklab, var(--pink) 22%, transparent) 0 70px, transparent 71px),
+    radial-gradient(50px 50px at 70% 70%, color-mix(in oklab, var(--accent-2) 20%, transparent) 0 50px, transparent 51px),
+    radial-gradient(90px 90px at 40% 30%, color-mix(in oklab, var(--brand) 18%, transparent) 0 90px, transparent 91px);
+  animation: float-bubbles 40s linear infinite;
+}
+.bg-bubbles::after {
+  filter: blur(6px) saturate(120%);
+  opacity: .7;
+  animation-duration: 55s;
+}
+@keyframes float-bubbles {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-30px) translateX(10px); }
+  100% { transform: translateY(0) translateX(0); }
+}
